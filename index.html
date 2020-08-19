@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<title>Rich Text Editor</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style>
+#output {
+	height: 400px; 
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+	margin: 1rem;
+	padding: 1rem;
+}
+</style>
+
+<body>
+    <button class ="tools" data-command= "bold" style="font-weight:bold;">B</button>  
+    <button class ="tools" data-command="italic" style="font-style:italic;">I</button>
+    <button class ="tools" data-command="undo" ><i class= "fa fa-undo"></i></button> 
+    <select id='fontchange'>
+        <option class="heading" selected>- font -</option>
+        <option class ="tools" value="Arial">Arial</option>
+        <option class ="tools" value="Arial Black">Arial Black</option>
+        <option class ="tools" value="Courier New">Courier New</option>
+        <option class ="tools" value="Tahoma">Tahoma</option>
+        <option class ="tools" value="Times New Roman">Times New Roman</option>
+        <option class ="tools" value="Consolas">Consolas</option>
+    </select> 
+    <div id="output" contenteditable="true"></div> 
+<script>
+        let output = document.getElementById('output');
+    let buttons = document.getElementsByClassName('tools');
+    for (let btn of buttons) {
+        btn.addEventListener('click', () => {
+            let cmd = btn.dataset['command'];
+                document.execCommand(cmd, false, null);
+        })
+    }
+    fontchange.addEventListener("change",function(e){
+        document.execCommand("FontName",false,e.target.value);
+    });
+    var font=document.querySelectorAll("select#fontchange > option");
+    for(var i=0;i<font.length;i++){
+        font[i].style.fontFamily = font[i].value;
+    }
+</script>     
+</body>
+</html>
